@@ -1,0 +1,36 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node.js
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/             # For Vite-specific build output/cache
+
+# Python
+__pycache__/       # Python compiled bytecode directories
+*.pyc              # Python compiled bytecode files
+.venv/             # Your Python virtual environment folder
+venv/              # Common alternative name for virtual environment
+*.env              # Environment variable files (e.g., .env, .env.local)
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea/             # IntelliJ/WebStorm IDE files
+.DS_Store          # macOS specific files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vercel
+.vercel/          # Vercel CLI configuration and cache folder

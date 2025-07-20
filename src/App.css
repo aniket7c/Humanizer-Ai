@@ -1,0 +1,160 @@
+/* app.css */
+
+/* --- Main Humanize Button Styles (from your original) --- */
+@keyframes neon-glow {
+  0% {
+    box-shadow: 0 0 5px #00b887, 0 0 10px #00b887, 0 0 15px #00b887;
+  }
+  100% {
+    box-shadow: 0 0 10px #00b887, 0 0 20px #00b887, 0 0 30px #00b887;
+  }
+}
+
+@keyframes neon-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.humanize-button-with-neon-sweep {
+  position: relative;
+  overflow: hidden; /* Crucial for the sweep effect */
+  animation: neon-glow 1.5s ease-in-out infinite alternate; /* Apply neon glow */
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  ); /* Base for sweep */
+  background-size: 200% 100%; /* Make background larger than button for sweep */
+  background-position: -100% 0; /* Ensures the sweep starts off-screen */
+}
+
+.humanize-button-with-neon-sweep:hover {
+  animation: neon-glow 1.5s ease-in-out infinite alternate,
+    neon-sweep 1s linear infinite; /* Add sweep on hover */
+}
+
+.humanize-button-with-neon-sweep:disabled {
+  animation: none; /* Disable animations when button is disabled */
+  cursor: not-allowed;
+  opacity: 0.5;
+  background: #00b887; /* Revert to static background for disabled state */
+  box-shadow: none; /* Remove glow for disabled state */
+}
+
+/* --- Sidebar Button Styles --- */
+
+.sidebar-button-wrapper {
+  position: relative; /* For pseudo-element */
+  overflow: hidden; /* For pseudo-element */
+  /* Ensure the wrapper doesn't take extra space due to absolute children */
+  display: flex;
+  justify-content: center; /* Center the button within the wrapper */
+  width: 100%; /* Ensure wrapper fills available width */
+}
+
+.sidebar-button {
+  display: flex;
+  flex-direction: column; /* Stack icon and text */
+  align-items: center;
+  gap: 4px; /* Space between icon and text */
+  width: 90%; /* Make button slightly narrower than wrapper for spacing */
+  padding: 8px 0; /* Comfortable padding */
+  background-color: transparent; /* Start with transparent background */
+  color: #a0a0a0; /* Softer text color for contrast */
+  border: none;
+  border-radius: 8px; /* Slightly rounded corners */
+  font-size: 11px; /* Smaller font size for labels */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Smooth transitions for all properties */
+  position: relative; /* Ensure content is above pseudo-element */
+  z-index: 1; /* Ensure content is above pseudo-element */
+}
+
+/* Styles for the icons within the sidebar buttons */
+.sidebar-button .icon-svg {
+  font-size: 24px; /* Adjust icon size as needed */
+  line-height: 1; /* Ensures icon is centered */
+  color: inherit; /* Inherit color from the button */
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out; /* Smooth icon animation */
+}
+
+/* Hover effect for sidebar buttons */
+.sidebar-button:hover {
+  color: #00b887; /* Highlight text color to neon green */
+  background-color: rgba(0, 184, 135, 0.08); /* Subtle green tint on hover */
+  box-shadow: 0 0 8px rgba(0, 184, 135, 0.2); /* Soft inner glow */
+}
+
+/* Icon animation on hover */
+.sidebar-button:hover .icon-svg {
+  transform: scale(1.1); /* Slightly enlarge icon on hover */
+  filter: drop-shadow(0 0 3px rgba(0, 184, 135, 0.8)); /* Subtle icon glow */
+}
+
+/* Active state for sidebar buttons */
+.sidebar-button.active {
+  background-color: rgba(
+    0,
+    184,
+    135,
+    0.15
+  ); /* More prominent background for active */
+  color: #00b887;
+  box-shadow: 0 0 12px rgba(0, 184, 135, 0.5); /* Stronger glow for active */
+}
+
+.sidebar-button.active .icon-svg {
+  transform: scale(1.1); /* Keep enlarged */
+  filter: drop-shadow(0 0 5px rgba(0, 184, 135, 1)); /* More intense glow */
+}
+
+/* Pseudo-element for the left border highlight/sweep on sidebar buttons */
+.sidebar-button-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px; /* Thin line */
+  height: 100%;
+  background-color: #00b887; /* Neon green line */
+  transform: translateX(-100%); /* Start off-screen to the left */
+  transition: transform 0.3s ease-out;
+  z-index: 0; /* Behind the button content */
+}
+
+.sidebar-button-wrapper:hover::before {
+  transform: translateX(0); /* Slide in from the left on hover */
+}
+
+.sidebar-button-wrapper.active::before {
+  transform: translateX(0); /* Keep the border highlight for active */
+}
+
+/* --- Additional Global Animations/Styles --- */
+
+/* Animation for the main content box's neon glow on hover */
+.group-hover\:shadow-neon-box-glow {
+  /* No direct style here, just the class to be targeted by parent group hover */
+}
+
+@keyframes button-glow-pulse {
+  0% {
+    box-shadow: 0 0 0px rgba(0, 184, 135, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 184, 135, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(0, 184, 135, 0.5);
+  }
+}
+
+.animate-button-glow-pulse {
+  animation: button-glow-pulse 2s infinite ease-in-out;
+}
