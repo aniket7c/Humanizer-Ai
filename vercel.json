@@ -12,20 +12,10 @@
       "config": { "distDir": "dist" }
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "backend/wsgi.py"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
   "installCommand": "pip install -r backend/requirements.txt && npm install",
   "buildCommand": "npm run build",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/api/(.*)", "destination": "/backend/wsgi.py" },
     { "source": "/(.*)", "destination": "/" }
   ]
 }
