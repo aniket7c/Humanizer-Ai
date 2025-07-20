@@ -4,4 +4,4 @@
 # Vercel expects the WSGI application to be named 'app' or 'handler'.
 # We'll name it 'app' as that's what Flask typically uses.
 
-from app import app
+from backend.app import app
