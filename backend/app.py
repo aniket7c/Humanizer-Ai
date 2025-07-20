@@ -1,4 +1,3 @@
-# app.py - Your Python Flask Backend with Ultimate Humanizer Prompt
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -9,11 +8,9 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-# --- Configuration ---
 GEMINI_API_KEY = os.environ.get("GOOGLE_GEMINI_API_KEY", "")
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
-# --- Helper Function to Call Gemini API ---
 def call_gemini_api(text_to_humanize):
     """
     Calls the Google Gemini API to dynamically humanize the given text using the ultimate humanizer prompt.
@@ -27,8 +24,6 @@ def call_gemini_api(text_to_humanize):
         print("-------------------------------------------\n")
         return "Error: API Key is missing. Please configure your backend."
 
-    # --- ULTIMATE HUMANIZER PROMPT ---
-    # This prompt is designed to be extremely assertive and guide the AI to a complete, natural rewrite.
     prompt = f"""
     You are an exceptionally talented, highly empathetic, and naturally engaging human writer. Your expertise lies in taking overly formal, complex, or clearly AI-generated text and transforming it into clear, concise, and genuinely human-sounding prose that anyone can understand and connect with. Your goal is to make the text feel like a friendly conversation, not a dry report.
 
@@ -97,31 +92,26 @@ def call_gemini_api(text_to_humanize):
         }
     }
 
-    # --- DEBUGGING LOGS (Keep these for now, they are very helpful!) ---
     print("\n--- Sending to Gemini API ---")
     print(f"URL: {GEMINI_API_URL}")
     print(f"Headers: {headers}")
     print(f"Params (key obscured): {'key=...' if GEMINI_API_KEY else 'No key'}")
     print("Payload (first 1000 chars):", json.dumps(payload, indent=2)[:1000] + "...") # Log more of the payload
     print("---------------------------\n")
-    # --- DEBUGGING LOGS END ---
 
 
     try:
-        response = requests.post(GEMINI_API_URL, headers=headers, params=params, json=payload, timeout=30) # Add timeout
-        response.raise_for_status() # This will raise an HTTPError for bad responses (4xx or 5xx)
+        response = requests.post(GEMINI_API_URL, headers=headers, params=params, json=payload, timeout=30) 
+        response.raise_for_status() 
         result = response.json()
 
-        # --- DEBUGGING LOGS (Keep these for now) ---
         print("\n--- Received from Gemini API ---")
         print("Raw Response Status:", response.status_code)
-        print("Raw Response Text (first 1000 chars):", response.text[:1000]) # Log more of the response
+        print("Raw Response Text (first 1000 chars):", response.text[:1000]) 
         print("Parsed JSON Result:")
         print(json.dumps(result, indent=2))
         print("------------------------------\n")
-        # --- DEBUGGING LOGS END ---
 
-        # Check for specific Google API errors (e.g., API key invalid, quota exceeded)
         if result.get("error"):
             error_message = result["error"].get("message", "Unknown API error occurred.")
             error_status = result["error"].get("status", "UNKNOWN")
@@ -170,6 +160,3 @@ def humanize_text():
 def health_check():
     return jsonify({"status": "Backend is running!"}), 200
 
-# --- Run the Flask App (unchanged) ---
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
