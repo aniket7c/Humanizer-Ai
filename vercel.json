@@ -8,8 +8,8 @@
     },
     {
       "src": "package.json",
-      "use": "@vercel/node",
-      "config": { "includeFiles": ["src/**", "public/**"] }
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
     }
   ],
   "routes": [
@@ -19,11 +19,13 @@
     },
     {
       "src": "/(.*)",
-      "dest": "index.html"
+      "dest": "/index.html"
     }
   ],
   "installCommand": "pip install -r backend/requirements.txt && npm install",
   "buildCommand": "npm run build",
-
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
