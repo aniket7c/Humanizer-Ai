@@ -7,7 +7,6 @@ import os
 # This ensures that 'from app import app' can find app.py
 sys.path.insert(0, os.path.dirname(__file__))
 
-from app import app as application
-
-# This file exposes the Flask app instance for Vercel to use.
-# 'application' is the standard name Vercel looks for.
+# Import the Flask app instance directly as 'app'
+# Vercel expects the WSGI application to be named 'app' or 'handler'
+from app import app
