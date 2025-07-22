@@ -17,7 +17,7 @@ const HumanizerPage = () => {
   // --- IMPORTANT: Backend API URL ---
   // This URL MUST match where your Flask backend is running.
   // For local development, it's typically http://127.0.0.1:5000
-  const BACKEND_API_URL = "/api";
+  const BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL;
 
   // --- handleHumanize function now calls the backend API ---
   const handleHumanize = async () => {
